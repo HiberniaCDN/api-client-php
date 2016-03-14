@@ -1,6 +1,6 @@
 ## HiberniaCDN API Client (PHP)
 
-### Installing using composer
+### Installing via composer
 
 Create composer.json like following
 ```
@@ -16,15 +16,15 @@ Create composer.json like following
     ]
 }
 ```
-Run
+Run composer to install
 ```
 $ php composer.phar install
 ```
 
-In PHP you should include vendor/autoload.php
+Usage example
 
 ``` php
-# Include autoloader
+# Include AutoLoader
 include_once __DIR__ . '/vendor/autoload.php';
 
 # Create a client
