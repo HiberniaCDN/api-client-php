@@ -79,6 +79,7 @@ $client = new \HiberniaCDN\APIClient\HTTPClient();
 
 # Try to log in
 try {
+
     # Try to log in
     $response = $client->post(
         '/login',
@@ -96,6 +97,7 @@ try {
 
     # Output
     echo sizeof($sites) . ' sites found' . PHP_EOL;
+    
 } catch (\HiberniaCDN\APIClient\Exception $x) {
   echo 'Error!' . PHP_EOL;
   echo ' > Status: ' . $x->getApiResponseStatus() . PHP_EOL;
