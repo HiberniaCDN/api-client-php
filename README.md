@@ -32,7 +32,10 @@ $client = new \HiberniaCDN\APIClient\HTTPClient();
 
 # Try to log in
 try {
-    $response = $client->post('/login', ['email' => 'my-mail@example.org', 'password' => 'My Secret Password']);
+    $response = $client->post(
+        '/login',
+        ['email' => 'my-mail@example.org', 'password' => 'My Secret Password']
+    );
 } catch (\HiberniaCDN\APIClient\Exception $x) {
   echo 'Error!' . PHP_EOL;
   echo ' > Status: ' . $x->getApiResponseStatus() . PHP_EOL;
