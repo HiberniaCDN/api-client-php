@@ -9,7 +9,7 @@ $ git clone git@github.com:HiberniaCDN/api-client-php.git
 Usage example
 
 ``` php
-# Include AutoLoader
+# Include necessary files
 include_once __DIR__ . '/src/Exception.php';
 include_once __DIR__ . '/src/HTTPClient.php';
 
