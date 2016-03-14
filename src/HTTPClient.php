@@ -73,14 +73,14 @@ class HTTPClient
      * 
      * @param string $rawResponse API response JSON-string
      * @return mixed|null
-     * @throws APIException
+     * @throws Exception
      */
     protected function parseAPIResponse($rawResponse)
     {
         if (!empty($rawResponse)) {
             $decoded = json_decode($rawResponse, true);
             if (!empty($decoded['errors'])) {
-                $exception = new APIException();
+                $exception = new Exception();
                 $exception->setApiResponse($rawResponse);
                 if ($decoded['errors'][0] && $decoded['errors'][0]['title']) {
                     $exception
@@ -102,7 +102,7 @@ class HTTPClient
      * @param string $uri API URI (example: '/accounts/{ID}')
      * @param string $authToken Authorization Token
      * @return mixed|null
-     * @throws APIException
+     * @throws Exception
      */
     public function get($uri, $authToken = '')
     {
@@ -122,7 +122,7 @@ class HTTPClient
      * @param array $parameters Request parameters
      * @param string $authToken Authorization Token
      * @return mixed|null
-     * @throws APIException
+     * @throws Exception
      */
     public function post($uri, $parameters, $authToken = '')
     {
@@ -143,7 +143,7 @@ class HTTPClient
      * @param array $parameters Request parameters
      * @param string $authToken Authorization Token
      * @return mixed|null
-     * @throws APIException
+     * @throws Exception
      */
     public function put($uri, $parameters, $authToken = '')
     {
@@ -163,7 +163,7 @@ class HTTPClient
      * @param string $uri API URI (example: '/sites/{ID}')
      * @param string $authToken Authorization Token
      * @return mixed|null
-     * @throws APIException
+     * @throws Exception
      */
     public function delete($uri, $authToken = '')
     {
