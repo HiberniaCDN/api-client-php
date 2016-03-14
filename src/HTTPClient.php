@@ -2,11 +2,9 @@
 /**
  * Simple HTTP-Requests interaction for API Client
  */
-namespace HiberniaCDN;
+namespace HiberniaCDN\APIClient;
 
-include_once 'APIException.php';
-
-class APIHTTPClient
+class HTTPClient
 {
     /**
      * API endpoint: https://portal.hiberniacdn.com/api
