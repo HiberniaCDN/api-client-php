@@ -40,7 +40,6 @@ include_once __DIR__ . '/vendor/autoload.php';
 ### Usage example
 
 ``` php
-
 # Create a client
 $client = new \HiberniaCDN\APIClient\HTTPClient();
 
