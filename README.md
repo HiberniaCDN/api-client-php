@@ -1,6 +1,6 @@
 ## HiberniaCDN API Client (PHP)
 
-### Installing via composer
+### Installing via [https://getcomposer.org](Composer)
 
 Create composer.json like following
 ```
