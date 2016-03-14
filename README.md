@@ -16,12 +16,27 @@ include_once __DIR__ . '/src/HTTPClient.php';
 # Create a client
 $client = new \HiberniaCDN\APIClient\HTTPClient();
 
-# Try to log in
+
 try {
+
+    # Try to log in
     $response = $client->post(
         '/login',
         ['email' => 'my-mail@example.org', 'password' => 'My Secret Password']
     );
+
+    # Getting authorization token from response
+    $authToken = $response['bearer_token'];
+
+    # Request Account's sites list
+    $sites = $client->get(
+        '/accounts/' . $response['user']['account']['id'] . '/sites',
+        $authToken
+    );
+
+    # Output
+    echo sizeof($sites) . ' sites found' . PHP_EOL;
+
 } catch (\HiberniaCDN\APIClient\Exception $x) {
   echo 'Error!' . PHP_EOL;
   echo ' > Status: ' . $x->getApiResponseStatus() . PHP_EOL;
@@ -64,10 +79,23 @@ $client = new \HiberniaCDN\APIClient\HTTPClient();
 
 # Try to log in
 try {
+    # Try to log in
     $response = $client->post(
         '/login',
         ['email' => 'my-mail@example.org', 'password' => 'My Secret Password']
     );
+
+    # Getting authorization token from response
+    $authToken = $response['bearer_token'];
+
+    # Request Account's sites list
+    $sites = $client->get(
+        '/accounts/' . $response['user']['account']['id'] . '/sites',
+        $authToken
+    );
+
+    # Output
+    echo sizeof($sites) . ' sites found' . PHP_EOL;
 } catch (\HiberniaCDN\APIClient\Exception $x) {
   echo 'Error!' . PHP_EOL;
   echo ' > Status: ' . $x->getApiResponseStatus() . PHP_EOL;
