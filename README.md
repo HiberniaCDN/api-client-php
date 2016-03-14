@@ -24,5 +24,21 @@ $ php composer.phar install
 In PHP you should include vendor/autoload.php
 
 ``` php
+# Include autoloader
 include_once __DIR__ . '/vendor/autoload.php';
+
+# Create a client
+$client = new \HiberniaCDN\APIClient\HTTPClient();
+
+# Try to log in
+try {
+    $response = $client->post('/login', ['email' => 'my-mail@example.org', 'password' => 'My Secret Password']);
+} catch (\HiberniaCDN\APIClient\Exception $x) {
+  echo 'Error!' . PHP_EOL;
+  echo ' > Status: ' . $x->getApiResponseStatus() . PHP_EOL;
+  echo ' > Text: ' . $x->getServerErrorMessage() . PHP_EOL;
+  echo ' > Details: ' . $x->getServerErrorDetails() . PHP_EOL;
+  echo ' > Raw Response: ' . $x->getApiResponse() . PHP_EOL;
+}
+
 ```
