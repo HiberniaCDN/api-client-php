@@ -17,12 +17,26 @@ use HiberniaCDN\APIClient\HTTPClient;
 class APIClient
 {
     protected $httpClient;
+    protected $apiKey = '';
     protected $loggedInUser = [];
 
-    public function __construct($apiURL = 'https://portal.hiberniacdn.com/api')
+    public function __construct($apiKey = '', $apiURL = 'https://portal.hiberniacdn.com/api')
     {
         $this->httpClient= new HTTPClient($apiURL);
+        $this->apiKey = $apiKey;
     }
+
+    /**
+     * Gets URI to send request to. Appends api_key if Client contains API key
+     * @param $uri
+     * @return string
+     */
+    protected function getURI($uri)
+    {
+        $uri .= !empty($this->apiKey) ? '?api_key=' . $this->apiKey : '';
+        return $uri;
+    }
+
 
     /**
      * @return HTTPClient
@@ -61,19 +75,58 @@ class APIClient
         return $data;
     }
 
-    public function getUser($userId, $authToken = null)
+    /**
+     * Creates new account
+     * Parameters list is similar to Account Update action: http://portal.hiberniacdn.com/api/doc/#put--api-accounts-{id}.{_format}
+     *
+     * @param string $name Account Name (must be unique across the system)
+     * @param array $parameters Account creation parameters
+     * @param null $authToken
+     * @return mixed|null
+     */
+    public function createAccount($name, $parameters = [], $authToken = null)
     {
-        return $this->httpClient->get('/users/' . $userId, $this->getAuthorizationToken($authToken));
+        $parameters['name'] = $name;
+        return $this->httpClient->post(
+            $this->getURI('/accounts'),
+            $parameters,
+            $this->getAuthorizationToken($authToken)
+        );
     }
 
-    public function getAccountSites($accountId, $authToken = null)
+    /**
+     * Creates a new user for a given account
+     * Users parameters list can be found at: http://portal.hiberniacdn.com/api/doc/#post--api-accounts-{id}-users.{_format}
+     *
+     * @param int $accountId
+     * @param array $parameters
+     * @param null $authToken
+     * @return mixed|null
+     */
+    public function createUserForAccount($accountId, $parameters = [], $authToken = null)
     {
-        return $this->httpClient->get('/accounts/' . $accountId . '/sites', $this->getAuthorizationToken($authToken));
+        return $this->httpClient->post(
+            $this->getURI('/accounts/' . $accountId . '/users'),
+            $parameters,
+            $this->getAuthorizationToken($authToken)
+        );
     }
 
-    public function updateSite($siteId, $data, $authToken = null)
+    /**
+     * Creates a new Bucket
+     *
+     * @param $accountId
+     * @param $parameters
+     * @param null $authToken
+     * @return mixed|null
+     */
+    public function createBucket($accountId, $parameters, $authToken = null)
     {
-        return $this->httpClient->put('/sites/' . $siteId, $data, $this->getAuthorizationToken($authToken = null));
+        return $this->httpClient->post(
+            $this->getURI('/accounts/' . $accountId . '/credits-transactions'),
+            $parameters,
+            $this->getAuthorizationToken($authToken)
+        );
     }
 
 }
