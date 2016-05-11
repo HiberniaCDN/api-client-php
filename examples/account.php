@@ -41,16 +41,17 @@ try {
     # Create a bucket
     $bucketData = [
         "credits" => 10000,
-        "comments" => "",
-        "expires" => "",
+        "expires" => "", # empty for 1 year
         "unit_price" => 0.05,
 
-        "unit_price__EU" => 0.05,
-        "unit_price__NA" => 0.05,
-        "unit_price__AS" => 0.1,
-        "unit_price__SA" => 0.1,
-        "unit_price__AF" => 0.2,
-        "unit_price__OC" => 0.2
+        # Optional parameters below
+        "comments" => "Bucket is created from SugarCRM",
+        "unit_price__EU" => 0.03,
+        "unit_price__NA" => 0.03,
+        "unit_price__AS" => 0.07,
+        "unit_price__SA" => 0.07,
+        "unit_price__AF" => 0.09,
+        "unit_price__OC" => 0.1
     ];
     $response = $client->createBucket($newAccountId, $bucketData);
 

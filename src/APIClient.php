@@ -115,8 +115,21 @@ class APIClient
     /**
      * Creates a new Bucket
      *
-     * @param $accountId
-     * @param $parameters
+     * Bucket Parameters list:
+     *
+     * "credits" - amount of credits to add
+     * "unit_price" - price in dollars for 1 GB of data
+     * "expires" - expiration period. Possible values: "1 month", "1 week" or blank for 1 year
+     * "comments" - (optional) Comments to a bucket
+     * "unit_price__EU" - (optional) price for Europe. Overrides "unit_price"
+     * "unit_price__NA" - (optional) price for North America. Overrides "unit_price"
+     * "unit_price__AS" - (optional) price for Asia. Overrides "unit_price"
+     * "unit_price__SA" - (optional) price for South America. Overrides "unit_price"
+     * "unit_price__OC" - (optional) price for Oceania. Overrides "unit_price"
+     * "unit_price__AF" - (optional) price for Africa. Overrides "unit_price"
+     *
+     * @param int $accountId Account ID to create bucket for
+     * @param array $parameters bucket parameters
      * @param null $authToken
      * @return mixed|null
      */
