@@ -43,9 +43,12 @@ class HTTPClient
                 curl_setopt($curl, CURLOPT_POSTFIELDS, $options['params']);
             }
         }
+        if ($method == 'DELETE') {
+            curl_setopt($curl, CURLOPT_CUSTOMREQUEST, $method);
+        }
         $response = curl_exec($curl);
         if (!$response) {
-            die("Connection failed");
+            return false;
         }
         return $response;
     }
@@ -80,7 +83,7 @@ class HTTPClient
         if (!empty($rawResponse)) {
             $decoded = json_decode($rawResponse, true);
             if (!empty($decoded['errors'])) {
-                $exception = new Exception();
+                $exception = new Exception('HTTP Client Error');
                 $exception->setApiResponse($rawResponse);
                 if ($decoded['errors'][0] && $decoded['errors'][0]['title']) {
                     $exception

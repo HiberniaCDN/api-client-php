@@ -8,8 +8,8 @@
  */
 namespace HiberniaCDN;
 
-include_once 'Exception.php';
-include_once 'HTTPClient.php';
+include_once __DIR__ . '/Exception.php';
+include_once __DIR__ . '/HTTPClient.php';
 
 use HiberniaCDN\APIClient\HTTPClient;
 
