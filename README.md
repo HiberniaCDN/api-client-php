@@ -41,22 +41,19 @@ include_once __DIR__ . '/vendor/autoload.php';
 
 ``` php
 # Create a client
-$client = new \HiberniaCDN\APIClient\HTTPClient();
+$client = new \HiberniaCDN\APIClient();
 
 # Try to log in
 try {
 
     # Try to log in
-    $response = $client->post(
-        '/login',
-        ['email' => 'my-mail@example.org', 'password' => 'My Secret Password']
-    );
+    $client->login('my-mail@example.org', 'My Secret Password');
 
     # Getting authorization token from response
-    $authToken = $response['bearer_token'];
+    $authToken = $client->getAuthorizationToken();
 
-    # Request Account's sites list
-    $sites = $client->get(
+    # Request Account's sites list using HTTPClient object
+    $sites = $client->getHttpClient()->get(
         '/accounts/' . $response['user']['account']['id'] . '/sites',
         $authToken
     );
