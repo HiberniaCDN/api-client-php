@@ -47,7 +47,7 @@ $client = new \HiberniaCDN\APIClient();
 try {
 
     # Try to log in
-    $client->login('my-mail@example.org', 'My Secret Password');
+    $response = $client->login('my-mail@example.org', 'My Secret Password');
 
     # Getting authorization token from response
     $authToken = $client->getAuthorizationToken();
